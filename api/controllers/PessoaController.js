@@ -100,6 +100,22 @@ class PessoaController {
     };
   };
 
+  static async apagaMatricula(req, res) {
+    const { estudanteId, matriculaId } = req.params;
+    try {
+      await database.Matriculas.destroy(
+      { 
+        where: 
+        { 
+          id: Number(matriculaId),
+          estudante_id: Number(estudanteId)
+        }
+      });
+      return res.status(200).json({mensagem: `ìd ${matriculaId} deletado`});
+    } catch(error) {
+      return res.status(500).json(error.message);
+    };
+  };
 }
 
 module.exports = PessoaController;
